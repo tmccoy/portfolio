@@ -1,16 +1,7 @@
 #!/bin/sh
 # this script pulls emails weekly for a marketing email
-today=$(date +%e)
 
-if [ $today -lt 10 ]; # need to add leading 0 to date if it's a single digit 
-  then
-    today="0""$today"
-fi
-
-month=$(date +%m)
-year=$(date +%Y)
-spaces_date=$year-$month-$today 
-date=$(echo "$spaces_date" | sed -e 's/ //g') # strip spaces caused by month/day being single digit 
+date=$(date +%F)
 
 hiveql="
 
