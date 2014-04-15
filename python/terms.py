@@ -18,7 +18,7 @@ class get_silo_map:
         with self.User_Master_Connect:
             cursor = self.User_Master_Connect.cursor()
 
-            if self.test_mode == "True":  							# if test mode is enabled limit to 3 silos
+            if self.test_mode:  							# if test mode is enabled limit to 3 silos
             	ex_cursor = cursor.execute("SELECT silo_db, db_port from silo_map limit 3")
             else:
             	ex_cursor = cursor.execute("SELECT silo_db, db_port from silo_map")
@@ -28,7 +28,7 @@ class get_silo_map:
             for (silo, port) in output:
             	output_dict[(silo)] = port             # create a dictionary key is silodb value is port  
 
-            if self.verbose == "True":
+            if self.verbose:
                 print output_dict
             
             print "Silo List Loaded"
@@ -127,7 +127,7 @@ class connect_to_silo:
 #---------------------------BEGIN-------------------------------#
 
 
-get = get_silo_map("False", "True") 				# get current silos and db ports
+get = get_silo_map(False, True) 				# get current silos and db ports
 silo_and_port_dict = get.connect_to_user_master() 
 
 silo_queue = Queue.Queue() 			# build queue for multithreading. Each thread takes a silodb

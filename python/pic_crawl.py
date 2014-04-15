@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# this program crawls a list of users filesystems and returns the exif data. 
+# this program crawls a list of users filesystems and returns the # with exif data. 
 import sys, os
 from sys import stdout
 import MySQLdb as mdb
@@ -38,7 +38,7 @@ class get_album_location:
             self.username = output_dict['username']
             self.directory = output_dict['directory']
 
-            if self.verbose == "True":
+            if self.verbose:
                 print "User Dict:"
                 print output_dict
                 print "Username: {0}".format(self.username)
@@ -51,7 +51,7 @@ class get_album_location:
         user_directory = filer_dir + '/' + self.username    
         return user_directory
 
-        if self.verbose == "True":
+        if self.verbose:
             print "Filer Path: " + filer_dir
             print "User Directory: " + user_directory
             print "User Directory Found: " + user_directory   
@@ -127,7 +127,7 @@ def worker():
 lock = threading.Lock()
 with open('users', 'r') as user_list:
     for users, line in enumerate(user_list):
-        get = get_album_location(line, album_dict, "False")
+        get = get_album_location(line, album_dict, False)
         user_location = get.find_album()
         user_albums_list.append(user_location)
         stdout.write("\r%s" % ( "Users Loaded: {0}".format(users) ))
